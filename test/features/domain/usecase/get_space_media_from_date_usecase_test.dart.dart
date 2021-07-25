@@ -6,6 +6,9 @@ import 'package:nasa_clean_arch/features/domain/entities/space_media_entity.dart
 import 'package:nasa_clean_arch/features/domain/repositories/space_media_repository.dart';
 import 'package:nasa_clean_arch/features/domain/usecases/get_space_media_from_date_usecase.dart';
 
+import '../../../mocks/date_mock.dart';
+import '../../../mocks/space_media_entity_mock.dart';
+
 class MockSpaceMediaRepository extends Mock implements ISpaceMediaRepository {}
 
 void main() {
@@ -16,17 +19,6 @@ void main() {
     repository = MockSpaceMediaRepository();
     usecase = GetSpaceMediaFromDateUsecase(repository);
   });
-
-  final tSpaceMedia = SpaceMediaEntity(
-    description:
-        'Sprawling emission nebulae IC 1396 and Sh2-129 mix glowing interstellar gas and dark dust clouds in this 10 degree wide field of view toward the northern constellation Cepheus the King. Energized by its bluish central star IC 1396 (left) is hundreds of light-years across and some 3,000 light-years distant. The nebula\'s intriguing dark shapes include a winding dark cloud popularly known as the Elephant\'s Trunk below and right of center. Tens of light-years long, it holds the raw raw material for star formation and is known to hide protostars within. Located a similar distance from planet Earth, the bright knots and swept back ridges of emission of Sh2-129 on the right suggest its popular name, the Flying Bat Nebula. Within the Flying Bat, the most recently recognized addition to this royal cosmic zoo is the faint bluish emission from Ou4, the Giant Squid nebula.',
-    mediaType: 'image',
-    title: 'Elephant, Bat, and Squid',
-    mediaUrl:
-        'https://apod.nasa.gov/apod/image/2107/IC1396SH2-129Ou4_50Hsieh_1024.jpg',
-  );
-
-  final tDate = DateTime(2021, 07, 24);
 
   test('Should get space media entity for a given date from the repository.',
       () async {

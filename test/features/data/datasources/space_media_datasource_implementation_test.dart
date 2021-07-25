@@ -6,6 +6,7 @@ import 'package:nasa_clean_arch/core/utils/converts/date_to_string_convert.dart'
 import 'package:nasa_clean_arch/features/data/datasources/space_media_datasource_implementation.dart';
 import 'package:nasa_clean_arch/features/data/models/space_media_model.dart';
 
+import '../../../mocks/date_mock.dart';
 import '../../../mocks/space_media_mock.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
@@ -19,7 +20,6 @@ void main() {
     datasource = NasaDatasourceImplementation(client);
   });
 
-  final tDateTime = DateTime(2021, 07, 24);
   final urlExpected =
       'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2021-07-24';
 
@@ -32,7 +32,7 @@ void main() {
 
   test('should call the get method with correct url', () async {
     successMock();
-    await datasource.getSpaceMediaFromDate(tDateTime);
+    await datasource.getSpaceMediaFromDate(tDate);
     verify(() => client.get(urlExpected)).called(1);
   });
 
@@ -45,7 +45,7 @@ void main() {
         title: "The Edge of Space",
         mediaUrl:
             "https://apod.nasa.gov/apod/image/2107/AuroraNoctilucent33k_rohner1024.jpg");
-    final result = await datasource.getSpaceMediaFromDate(tDateTime);
+    final result = await datasource.getSpaceMediaFromDate(tDate);
     expect(result, tSpaceMediaModelExpected);
   });
 
@@ -53,7 +53,7 @@ void main() {
       () async {
     when(() => client.get(any())).thenAnswer((_) async =>
         HttpResponse(data: 'something went wrong', statusCode: 400));
-    final result = datasource.getSpaceMediaFromDate(tDateTime);
+    final result = datasource.getSpaceMediaFromDate(tDate);
     expect(() => result, throwsA(ServerException()));
   });
 }

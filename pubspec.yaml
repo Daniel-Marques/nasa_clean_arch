@@ -15,21 +15,25 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # pt-BR: Comparador de Objetos
-  # en-BR: Object Comparator
+  # en-US: Object Comparator
   equatable: ^2.0.3
 
   # pt-BR: Injeção de Dependências e Rotas dinâmicas
-  # en-BR: Dependency injection and dynamic routes
+  # en-US: Dependency injection and dynamic routes
   flutter_modular: ^3.3.1
 
   # pt-BR: Requisições
-  # en-BR: Request
+  # en-US: Request
   dio: ^4.0.0
   http:
 
   # pt-BR: Programação funcional
   # en-BR: Functional Programming
   dartz: ^0.10.0-nullsafety.2
+
+  # pt-BR: Gerência de Estado
+  # en-US: State Management
+  flutter_triple: ^1.2.3+1
 
 
 dev_dependencies:

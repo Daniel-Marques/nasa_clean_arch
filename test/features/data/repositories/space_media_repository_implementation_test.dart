@@ -7,6 +7,8 @@ import 'package:nasa_clean_arch/features/data/datasources/space_media_datasource
 import 'package:nasa_clean_arch/features/data/models/space_media_model.dart';
 import 'package:nasa_clean_arch/features/data/repositories/space_media_repository_implementation.dart';
 
+import '../../../mocks/date_mock.dart';
+
 class MockSpaceMediaDatasource extends Mock implements ISpaceMediaDatasource {}
 
 void main() {
@@ -26,7 +28,6 @@ void main() {
     mediaUrl:
         'https://apod.nasa.gov/apod/image/2107/IC1396SH2-129Ou4_50Hsieh_1024.jpg',
   );
-  final tDate = DateTime(2021, 07, 24);
 
   test('should return space media model when calls the datasource', () async {
     when(() => datasource.getSpaceMediaFromDate(tDate))
