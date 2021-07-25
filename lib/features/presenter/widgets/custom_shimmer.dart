@@ -3,7 +3,6 @@ import 'package:shimmer/shimmer.dart';
 
 class CustomShimmer extends StatelessWidget {
   final Widget child;
-
   CustomShimmer({required this.child});
 
   @override
