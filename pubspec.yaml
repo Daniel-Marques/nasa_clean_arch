@@ -25,6 +25,7 @@ dependencies:
   # pt-BR: Requisições
   # en-BR: Request
   dio: ^4.0.0
+  http:
 
   # pt-BR: Programação funcional
   # en-BR: Functional Programming
