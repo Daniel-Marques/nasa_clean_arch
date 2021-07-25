@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_clean_arch/core/errors/failures.dart';
-import 'package:nasa_clean_arch/features/domain/entities/space_media_entity.dart';
-import 'package:nasa_clean_arch/features/domain/repositories/space_media_repository.dart';
-import 'package:nasa_clean_arch/features/domain/usecases/get_space_media_from_date_usecase.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/entities/space_media_entity.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/repositories/space_media_repository.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/usecases/get_space_media_from_date_usecase.dart';
 
 import '../../../mocks/date_mock.dart';
 import '../../../mocks/space_media_entity_mock.dart';
@@ -34,5 +34,12 @@ void main() {
         (_) async => Left<Failure, SpaceMediaEntity>(ServerFailure()));
     final result = await usecase(tDate);
     expect(result, Left<Failure, SpaceMediaEntity>(ServerFailure()));
+  });
+
+  test('should return a NullParamsFailure when receives a null param',
+      () async {
+    final result = await usecase(tDate);
+    expect(result, Left(NullParamsFailure()));
+    verifyNever(() => repository.getSpaceMediaFromDate(tDate));
   });
 }

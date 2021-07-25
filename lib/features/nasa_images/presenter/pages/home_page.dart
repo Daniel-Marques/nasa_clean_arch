@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nasa_clean_arch/features/presenter/controllers/home_store.dart';
-import 'package:nasa_clean_arch/features/presenter/widgets/custom_app_bar.dart';
-import 'package:nasa_clean_arch/features/presenter/widgets/round_button.dart';
+import 'package:nasa_clean_arch/features/nasa_images/presenter/controllers/home_store.dart';
+import 'package:nasa_clean_arch/features/nasa_images/presenter/widgets/custom_app_bar.dart';
+import 'package:nasa_clean_arch/features/nasa_images/presenter/widgets/round_button.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -39,6 +39,8 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                       firstDate: DateTime(1995, 06, 16),
                       lastDate: DateTime.now(),
                     );
+
+                    await store.getSpaceMediaFromDate(datePicked);
                   },
                 ),
                 SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_clean_arch/features/presenter/pages/home_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nasa_clean_arch/app_module.dart';
+import 'package:nasa_clean_arch/app_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,13 +10,9 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
+    return ModularApp(
+      module: AppModule(),
+      child: AppWidget(),
     );
   }
 }

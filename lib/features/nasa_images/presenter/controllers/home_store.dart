@@ -1,7 +1,7 @@
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:nasa_clean_arch/core/errors/failures.dart';
-import 'package:nasa_clean_arch/features/domain/entities/space_media_entity.dart';
-import 'package:nasa_clean_arch/features/domain/usecases/get_space_media_from_date_usecase.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/entities/space_media_entity.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/usecases/get_space_media_from_date_usecase.dart';
 
 class HomeStore extends NotifierStore<Failure, SpaceMediaEntity> {
   final GetSpaceMediaFromDateUsecase usecase;
@@ -10,7 +10,7 @@ class HomeStore extends NotifierStore<Failure, SpaceMediaEntity> {
       : super(SpaceMediaEntity(
             description: '', mediaType: '', title: '', mediaUrl: ''));
 
-  getSpaceMediaFromDate(DateTime date) async {
+  getSpaceMediaFromDate(DateTime? date) async {
     setLoading(true);
     final result = await usecase(date);
     result.fold((error) => setError(error), (success) => update(success));

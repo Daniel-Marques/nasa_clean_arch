@@ -1,39 +1,45 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nasa_clean_arch/core/errors/exceptions.dart';
-import 'package:nasa_clean_arch/core/http_client/http_client.dart';
-import 'package:nasa_clean_arch/core/utils/converts/date_to_string_convert.dart';
-import 'package:nasa_clean_arch/features/data/datasources/space_media_datasource_implementation.dart';
-import 'package:nasa_clean_arch/features/data/models/space_media_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:nasa_clean_arch/core/utils/converts/date_input_converter.dart';
+import 'package:nasa_clean_arch/features/nasa_images/data/datasources/space_media_datasource_implementation.dart';
+import 'package:nasa_clean_arch/features/nasa_images/data/models/space_media_model.dart';
 
 import '../../../mocks/date_mock.dart';
 import '../../../mocks/space_media_mock.dart';
 
-class HttpClientMock extends Mock implements HttpClient {}
+class MockDateInputConverter extends Mock implements DateInputConverter {}
+
+class HttpClientMock extends Mock implements http.Client {}
 
 void main() {
   late NasaDatasourceImplementation datasource;
-  late HttpClient client;
+  late DateInputConverter converter;
+  late http.Client client;
 
   setUp(() {
+    converter = MockDateInputConverter();
     client = HttpClientMock();
-    datasource = NasaDatasourceImplementation(client);
+    datasource =
+        NasaDatasourceImplementation(client: client, converter: converter);
   });
 
   final urlExpected =
       'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2021-07-24';
 
   void successMock() {
-    when(() => client.get(any())).thenAnswer((_) async => HttpResponse(
-          data: spaceMediaMock,
-          statusCode: 200,
+    when(() => client.get(any())).thenAnswer((_) async => http.Response(
+          spaceMediaMock,
+          200,
         ));
   }
 
   test('should call the get method with correct url', () async {
     successMock();
     await datasource.getSpaceMediaFromDate(tDate);
-    verify(() => client.get(urlExpected)).called(1);
+    verify(() => client.get(Uri.https(
+        'api.nasa.gov', '/planetary/apod', {'api_key': 'DEMO_KEY'}))).called(1);
   });
 
   test('should return a SpaceMediaModel when is successful', () async {
@@ -51,8 +57,8 @@ void main() {
 
   test('should throw a ServerException when the call is unsuccessful',
       () async {
-    when(() => client.get(any())).thenAnswer((_) async =>
-        HttpResponse(data: 'something went wrong', statusCode: 400));
+    when(() => client.get(any()))
+        .thenAnswer((_) async => http.Response('something went wrong', 400));
     final result = datasource.getSpaceMediaFromDate(tDate);
     expect(() => result, throwsA(ServerException()));
   });

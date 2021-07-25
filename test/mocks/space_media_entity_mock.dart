@@ -1,4 +1,4 @@
-import 'package:nasa_clean_arch/features/domain/entities/space_media_entity.dart';
+import 'package:nasa_clean_arch/features/nasa_images/domain/entities/space_media_entity.dart';
 
 final tSpaceMedia = SpaceMediaEntity(
   description:
